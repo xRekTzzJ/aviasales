@@ -1,7 +1,8 @@
+import classes from '../../index.module.scss';
 import Card from '../card';
 const CardList = () => {
   return (
-    <div className="card-list">
+    <div className={classes['card-list']}>
       <Card />
       <Card />
       <Card />

@@ -1,13 +1,5 @@
 @import './styles/variables.scss';
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
-.body {
-  font-family: $fonts;
-  font-optical-sizing: auto;
-  width: $max-width;
-  margin: 0 auto;
-  background-color: $background;
-}
+@import './styles/body/body.scss';
 .logo {
   display: block;
   margin: 50px auto;
@@ -62,7 +54,7 @@
   display: flex;
   flex-direction: column;
   color: $text-color;
-  gap: 10px;
+  gap: 20px;
   grid-area: filter;
 
   &__checkbox {
@@ -76,7 +68,7 @@
       user-select: none;
       cursor: pointer;
       width: 100%;
-      padding: 0 20px;
+      padding: 10px 20px;
     }
 
     & + label::before {
@@ -120,7 +112,6 @@
     font-style: normal;
     font-size: 13px;
     line-height: 20px;
-    padding: 10px 0;
     transition: 0.3s;
     cursor: pointer;
 
@@ -170,12 +161,10 @@
 
     &_active {
       background-color: #2196f3;
+      color: #ffffff;
       border: none;
     }
   }
-}
-.container {
-  display: flex;
 }
 
 .card {
@@ -189,6 +178,12 @@
     'price . logo'
     'info info info';
   padding: 20px;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+  }
 
   &__data-container {
     grid-area: info;
