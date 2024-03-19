@@ -5,6 +5,12 @@
   margin: 50px auto;
   padding: 0;
   width: 60px;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .grid-container {
