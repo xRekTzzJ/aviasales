@@ -15,17 +15,97 @@
   width: 60px;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: min-content;
+  grid-template-rows: min-content;
+  grid-template-areas:
+    'filter tabs'
+    'filter cards';
+  gap: 20px;
+}
+
+.card-list {
+  grid-area: cards;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  button {
+    font-style: normal;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #2196f3;
+    border-radius: 5px;
+    border: none;
+    width: 502px;
+    height: 50px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
 .filter {
   background-color: $elements-background;
-  width: 192px;
+  width: 232px;
   height: 212px;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  padding: 20px;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   color: $text-color;
   gap: 10px;
+  grid-area: filter;
+
+  &__checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    & + label {
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+      cursor: pointer;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    & + label::before {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid #adb5bd;
+      border-radius: 0.25em;
+      margin-right: 0.5em;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50% 50%;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    &:checked + label::before {
+      border-color: #0b76ef;
+      background-color: none;
+      background-image: url('./img/Shape.png');
+    }
+
+    &:not(:disabled):not(:checked) + label:hover::before {
+      border-color: #b3d7ff;
+    }
+  }
 
   &__list {
     list-style: none;
@@ -41,13 +121,119 @@
     font-size: 13px;
     line-height: 20px;
     padding: 10px 0;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f1fcff;
+    }
   }
 
   &__title {
+    margin: 0 20px;
     font-style: normal;
     font-size: $text-size-s;
     line-height: 12px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+  }
+}
+
+.tabs {
+  &__button {
+    margin: 0;
+    padding: 15px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: $elements-background;
+    border: 1px solid #dfe5ec;
+    grid-area: tabs;
+    transition: 0.3s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:first-of-type {
+      border-radius: 10px 0px 0px 10px;
+    }
+
+    &:last-of-type {
+      border-radius: 0px 10px 10px 0;
+    }
+
+    &_active {
+      background-color: #2196f3;
+      border: none;
+    }
+  }
+}
+.container {
+  display: flex;
+}
+
+.card {
+  width: 462px;
+  height: 144px;
+  background-color: $elements-background;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: grid;
+  grid-template-areas:
+    'price . logo'
+    'info info info';
+  padding: 20px;
+
+  &__data-container {
+    grid-area: info;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__price {
+    grid-area: price;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 24px;
+    color: #2196f3;
+  }
+
+  &__description {
+    font-style: normal;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    color: #a0b0b9;
+  }
+
+  &__info {
+    font-style: normal;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4a4a4a;
+  }
+
+  &__logo {
+    grid-area: logo;
+    justify-self: end;
+  }
+
+  &__data {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__info-container {
+    display: flex;
+    justify-content: space-between;
   }
 }
