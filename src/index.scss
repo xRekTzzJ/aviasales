@@ -1,0 +1,53 @@
+@import './styles/variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.body {
+  font-family: $fonts;
+  font-optical-sizing: auto;
+  width: $max-width;
+  margin: 0 auto;
+  background-color: $background;
+}
+.logo {
+  display: block;
+  margin: 50px auto;
+  padding: 0;
+  width: 60px;
+}
+
+.filter {
+  background-color: $elements-background;
+  width: 192px;
+  height: 212px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  color: $text-color;
+  gap: 10px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    text-align: left;
+    font-style: normal;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 10px 0;
+  }
+
+  &__title {
+    font-style: normal;
+    font-size: $text-size-s;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+}
