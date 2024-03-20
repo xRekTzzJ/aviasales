@@ -1,4 +1,5 @@
 import React from 'react';
+
 import logo from '../../img/Logo.png';
 import classes from '../../index.module.scss';
 import CardList from '../card-list';
