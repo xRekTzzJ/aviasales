@@ -1,1 +1,1 @@
-export const nameAction = (name) => ({ type: name });
+export const tabAction = (name) => ({ type: name });

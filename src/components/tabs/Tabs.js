@@ -9,7 +9,7 @@ import TabButton from '../tab-button';
 const Tabs = () => {
   const store = configureStore({ reducer });
   const { dispatch } = store;
-  const { nameAction } = bindActionCreators(actions, dispatch);
+  const { tabAction } = bindActionCreators(actions, dispatch);
 
   const [active, setActive] = useState('null');
 
@@ -18,9 +18,9 @@ const Tabs = () => {
   });
   return (
     <div className={classes.tabs}>
-      <TabButton title="самый дешевый" nameAction={nameAction} name={'cheapest'} active={active} />
-      <TabButton title="самый быстрый" nameAction={nameAction} name={'fastest'} active={active} />
-      <TabButton title="оптимальный" nameAction={nameAction} name={'optimal'} active={active} />
+      <TabButton title="самый дешевый" nameAction={tabAction} name={'cheapest'} active={active} />
+      <TabButton title="самый быстрый" nameAction={tabAction} name={'fastest'} active={active} />
+      <TabButton title="оптимальный" nameAction={tabAction} name={'optimal'} active={active} />
     </div>
   );
 };
