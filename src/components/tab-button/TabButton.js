@@ -1,14 +1,16 @@
 import classes from '../../index.module.scss';
 
-const TabButton = ({ title, name, nameAction, active }) => {
+const TabButton = ({ title, name, tabAction, activeButton }) => {
   const onButtonClick = () => {
-    nameAction(name);
+    tabAction(name);
   };
 
   return (
     <button
       className={
-        active === name ? `${classes['tabs__button']} ${classes['tabs__button_active']}` : `${classes['tabs__button']}`
+        activeButton === name
+          ? `${classes['tabs__button']} ${classes['tabs__button_active']}`
+          : `${classes['tabs__button']}`
       }
       onClick={onButtonClick}
     >

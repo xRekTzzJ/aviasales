@@ -11,16 +11,16 @@ const Tabs = () => {
   const { dispatch } = store;
   const { tabAction } = bindActionCreators(actions, dispatch);
 
-  const [active, setActive] = useState('null');
+  const [activeButton, setActiveButton] = useState('null');
 
   store.subscribe(() => {
-    setActive(store.getState());
+    setActiveButton(store.getState());
   });
   return (
     <div className={classes.tabs}>
-      <TabButton title="самый дешевый" nameAction={tabAction} name={'cheapest'} active={active} />
-      <TabButton title="самый быстрый" nameAction={tabAction} name={'fastest'} active={active} />
-      <TabButton title="оптимальный" nameAction={tabAction} name={'optimal'} active={active} />
+      <TabButton title="самый дешевый" tabAction={tabAction} name={'cheapest'} activeButton={activeButton} />
+      <TabButton title="самый быстрый" tabAction={tabAction} name={'fastest'} activeButton={activeButton} />
+      <TabButton title="оптимальный" tabAction={tabAction} name={'optimal'} activeButton={activeButton} />
     </div>
   );
 };
