@@ -10,7 +10,9 @@ const Tabs = () => {
   const store = configureStore({ reducer });
   const { dispatch } = store;
   const { nameAction } = bindActionCreators(actions, dispatch);
+
   const [active, setActive] = useState('null');
+
   store.subscribe(() => {
     setActive(store.getState());
   });
