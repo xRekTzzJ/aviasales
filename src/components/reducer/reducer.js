@@ -1,11 +1,12 @@
-const reducer = (state = null, action) => {
+const initialState = {
+  activeTabButton: null,
+};
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'optimal':
-      return (state = 'optimal');
     case 'cheapest':
-      return (state = 'cheapest');
+      return { ...initialState, activeTabButton: 'cheapest' };
     case 'fastest':
-      return (state = 'fastest');
+      return { ...initialState, activeTabButton: 'fastest' };
     default:
       return state;
   }

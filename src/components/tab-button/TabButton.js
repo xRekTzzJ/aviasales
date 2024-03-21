@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import classes from '../../index.module.scss';
 import * as actions from '../actions/actions';
 
-const TabButton = ({ title, name, tabAction, activeTabButton }) => {
+const TabButton = ({ title, name, tabButtonAction, activeTabButton }) => {
   const onButtonClick = () => {
-    tabAction(name);
+    tabButtonAction(name);
   };
   let styles =
     activeTabButton === name
@@ -21,7 +21,7 @@ const TabButton = ({ title, name, tabAction, activeTabButton }) => {
 
 const mapStateToProps = (state) => {
   return {
-    activeTabButton: state,
+    activeTabButton: state.activeTabButton,
   };
 };
 

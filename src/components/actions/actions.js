@@ -1,1 +1,1 @@
-export const tabAction = (name) => ({ type: name });
+export const tabButtonAction = (name) => ({ type: name });

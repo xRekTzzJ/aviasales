@@ -6,7 +6,6 @@ const Tabs = () => {
     <div className={classes.tabs}>
       <TabButton title="самый дешевый" name={'cheapest'} />
       <TabButton title="самый быстрый" name={'fastest'} />
-      {/* <TabButton title="оптимальный" name={'optimal'} /> */}
     </div>
   );
 };
