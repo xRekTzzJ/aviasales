@@ -1,11 +1,12 @@
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import classes from '../../index.module.scss';
-import * as actions from '../actions/actions';
 
-const TabButton = ({ title, name, tabButtonAction, activeTabButton }) => {
+const TabButton = ({ title, name }) => {
+  const dispatch = useDispatch();
+  const activeTabButton = useSelector((state) => state.tabs.activeTabButton);
   const onButtonClick = () => {
-    tabButtonAction(name);
+    dispatch({ type: name });
   };
   let styles =
     activeTabButton === name
@@ -18,11 +19,4 @@ const TabButton = ({ title, name, tabButtonAction, activeTabButton }) => {
     </button>
   );
 };
-
-const mapStateToProps = (state) => {
-  return {
-    activeTabButton: state.activeTabButton,
-  };
-};
-
-export default connect(mapStateToProps, actions)(TabButton);
+export default TabButton;

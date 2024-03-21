@@ -1,17 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
 import { Provider } from 'react-redux';
 
 import logo from '../../img/Logo.png';
 import classes from '../../index.module.scss';
+import store from '../../store';
 import CardList from '../card-list';
 import Filter from '../filter';
-import reducer from '../reducer/reducer';
 import Tabs from '../tabs/Tabs';
 
 const App = () => {
-  const store = configureStore({ reducer });
-
   return (
     <Provider store={store}>
       <>

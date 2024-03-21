@@ -1,7 +1,7 @@
 const initialState = {
   activeTabButton: null,
 };
-const reducer = (state = initialState, action) => {
+const tabReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'cheapest':
       return { ...initialState, activeTabButton: 'cheapest' };
@@ -12,4 +12,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default tabReducer;
