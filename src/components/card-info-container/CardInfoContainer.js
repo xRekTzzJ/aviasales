@@ -1,6 +1,10 @@
+import { addMinutes, getHours, getMinutes } from 'date-fns';
+
 import classes from '../../index.module.scss';
+
 const CardInfoContainer = ({ segment }) => {
-  const { origin, destination, duration, stops } = segment;
+  const { origin, destination, duration, stops, date } = segment;
+  const arrivalAndDepartureTime = `${getHours(new Date(date))}:${getMinutes(new Date(date))} - ${getHours(addMinutes(new Date(date), duration))}:${getMinutes(addMinutes(new Date(date), duration))}`;
 
   const fixedStops = () => {
     if (stops.length > 5) {
@@ -21,7 +25,7 @@ const CardInfoContainer = ({ segment }) => {
         <span className={classes['card__description']}>
           {origin} - {destination}
         </span>
-        <span className={classes['card__info']}>10:45 - 08:00</span>
+        <span className={classes['card__info']}>{arrivalAndDepartureTime}</span>
       </div>
       <div className={classes['card__data']}>
         <span className={classes['card__description']}>в пути</span>
