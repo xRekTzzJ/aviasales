@@ -63,6 +63,7 @@
   color: $text-color;
   gap: 20px;
   grid-area: filter;
+  overflow: hidden;
 
   &__checkbox {
     position: absolute;
