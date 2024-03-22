@@ -1,5 +1,5 @@
 const initialState = {
-  activeTabButton: null,
+  activeTabButton: 'cheapest',
 };
 const tabReducer = (state = initialState, action) => {
   switch (action.type) {

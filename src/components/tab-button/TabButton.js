@@ -7,6 +7,7 @@ const TabButton = ({ title, name }) => {
   const activeTabButton = useSelector((state) => state.tabs.activeTabButton);
   const onButtonClick = () => {
     dispatch({ type: name });
+    dispatch({ type: `GET_${name.toUpperCase()}` });
   };
   let styles =
     activeTabButton === name

@@ -1,11 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import classes from '../../index.module.scss';
 import Card from '../card';
 const CardList = () => {
+  const [totalTickets, setTotalTickets] = useState(5);
+
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
+  // const tabState = useSelector((state) => state.tabs.activeTabButton);
   const getSearchId = async () => {
     const res = await fetch('https://aviasales-test-api.kata.academy/search');
     const data = await res.json();
@@ -18,19 +21,17 @@ const CardList = () => {
     dispatch({ type: 'GET_TICKETS', payload: data });
     return data;
   };
-
-  useEffect(() => {
-    const getTicketsAcync = async () => {
-      await getTickets(await getSearchId());
-    };
-    getTicketsAcync();
+  useEffect(async () => {
+    await getTickets(await getSearchId());
+    dispatch({ type: 'GET_CHEAPEST' });
   }, []);
+
   return (
     <div className={classes['card-list']}>
-      {tickets.slice(0, 5).map((i) => {
+      {tickets.slice(0, totalTickets).map((i) => {
         return <Card price={i.price} key={i.price} carrier={i.carrier} segments={i.segments} />;
       })}
-      <button>показать еще 5 билетов!</button>
+      <button onClick={() => setTotalTickets(totalTickets + 5)}>показать еще 5 билетов!</button>
     </div>
   );
 };
