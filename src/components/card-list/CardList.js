@@ -2,29 +2,19 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import classes from '../../index.module.scss';
+import AviasalesService from '../../services/aviasales-service';
 import Card from '../card';
 const CardList = () => {
   const [totalTickets, setTotalTickets] = useState(5);
+  const aviasalesApi = new AviasalesService();
 
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
   const activeTab = useSelector((state) => state.tabs.activeTabButton);
 
-  const getSearchId = async () => {
-    const res = await fetch('https://aviasales-test-api.kata.academy/search');
-    const data = await res.json();
-    dispatch({ type: 'GET_SEARCH_ID', payload: data });
-    return data.searchId;
-  };
-  const getTickets = async (id) => {
-    const res = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${id}`);
-    const data = await res.json();
-    dispatch({ type: 'GET_TICKETS', payload: data });
-    return data;
-  };
   useEffect(() => {
     const getData = async () => {
-      await getTickets(await getSearchId());
+      await aviasalesApi.getTickets(await aviasalesApi.getSearchId());
       dispatch({ type: 'GET_CHEAPEST' });
     };
     getData();
