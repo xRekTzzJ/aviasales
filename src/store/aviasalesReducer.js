@@ -6,7 +6,7 @@ const initialState = {
 const aviasalesReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_TICKETS':
-      return { ...state, tickets: action.payload.tickets, loading: false };
+      return { ...state, tickets: [...state.tickets, ...action.payload.tickets], loading: false };
     case 'LOADING':
       return { ...state, loading: true };
     default:

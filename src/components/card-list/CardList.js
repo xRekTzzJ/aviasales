@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import { Alert, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,6 +8,7 @@ import AviasalesService from '../../services/aviasales-service';
 import Card from '../card';
 const CardList = () => {
   const [totalTickets, setTotalTickets] = useState(5);
+  const [errorState, setErrorState] = useState(false);
   const aviasalesApi = new AviasalesService();
 
   const dispatch = useDispatch();
@@ -19,14 +20,25 @@ const CardList = () => {
   useEffect(() => {
     dispatch({ type: 'LOADING' });
     const getData = async () => {
-      await aviasalesApi.getTickets(await aviasalesApi.getSearchId());
-      dispatch({ type: 'GET_CHEAPEST' });
-      dispatch({ type: 'All' });
+      try {
+        await aviasalesApi.getTickets(await aviasalesApi.getSearchId());
+        dispatch({ type: 'GET_CHEAPEST' });
+        dispatch({ type: 'All' });
+      } catch {
+        setErrorState(true);
+      }
     };
     getData();
   }, []);
 
   const RenderList = () => {
+    if (errorState && tickets.length === 0) {
+      return (
+        <div className={classes['card-list']}>
+          <Alert message="Server error" description="Please try again later." type="error" showIcon />
+        </div>
+      );
+    }
     if (isLoading) {
       return (
         <div className={classes['card-list']}>
