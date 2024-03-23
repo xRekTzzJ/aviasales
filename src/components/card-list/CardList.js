@@ -8,6 +8,8 @@ const CardList = () => {
 
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
+  const activeTab = useSelector((state) => state.tabs.activeTabButton);
+
   const getSearchId = async () => {
     const res = await fetch('https://aviasales-test-api.kata.academy/search');
     const data = await res.json();
@@ -28,11 +30,28 @@ const CardList = () => {
     getData();
   }, []);
 
+  const filter = () => {
+    switch (activeTab) {
+      case 'cheapest':
+        return [...tickets].sort((a, b) => {
+          return a.price - b.price;
+        });
+      case 'fastest':
+        return [...tickets].sort((a, b) => {
+          return a.segments[0].duration - b.segments[0].duration;
+        });
+      default:
+        return [...tickets];
+    }
+  };
+
   return (
     <div className={classes['card-list']}>
-      {tickets.slice(0, totalTickets).map((i) => {
-        return <Card price={i.price} key={i.price} carrier={i.carrier} segments={i.segments} />;
-      })}
+      {filter()
+        .slice(0, totalTickets)
+        .map((i, index) => {
+          return <Card data={i} key={index} />;
+        })}
       <button onClick={() => setTotalTickets(totalTickets + 5)}>показать еще 5 билетов!</button>
     </div>
   );

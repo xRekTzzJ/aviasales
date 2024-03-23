@@ -1,6 +1,7 @@
 import classes from '../../index.module.scss';
 import CardInfoContainer from '../card-info-container';
-const Card = ({ price, carrier, segments }) => {
+const Card = (props) => {
+  const { price, carrier, segments } = props.data;
   return (
     <div className={classes.card}>
       <span className={classes['card__price']}>{price} Р</span>
