@@ -16,6 +16,13 @@ const aviasalesReducer = (state = initialState, action) => {
           return a.price - b.price;
         }),
       };
+    case 'GET_FASTEST':
+      return {
+        ...state,
+        tickets: [...state.tickets].sort((a, b) => {
+          return a.segments[0].duration - b.segments[0].duration;
+        }),
+      };
     default:
       return state;
   }

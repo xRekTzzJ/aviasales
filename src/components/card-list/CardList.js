@@ -8,7 +8,6 @@ const CardList = () => {
 
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
-  // const tabState = useSelector((state) => state.tabs.activeTabButton);
   const getSearchId = async () => {
     const res = await fetch('https://aviasales-test-api.kata.academy/search');
     const data = await res.json();
