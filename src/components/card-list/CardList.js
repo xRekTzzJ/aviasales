@@ -1,3 +1,5 @@
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,15 +13,63 @@ const CardList = () => {
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
   const activeTab = useSelector((state) => state.tabs.activeTabButton);
+  const isLoading = useSelector((state) => state.tickets.loading);
   const filterState = useSelector((state) => state.filter);
 
   useEffect(() => {
+    dispatch({ type: 'LOADING' });
     const getData = async () => {
       await aviasalesApi.getTickets(await aviasalesApi.getSearchId());
       dispatch({ type: 'GET_CHEAPEST' });
+      dispatch({ type: 'All' });
     };
     getData();
   }, []);
+
+  const RenderList = () => {
+    if (isLoading) {
+      return (
+        <div className={classes['card-list']}>
+          <Spin
+            indicator={
+              <LoadingOutlined
+                style={{
+                  fontSize: 48,
+                }}
+                spin
+              />
+            }
+          />
+        </div>
+      );
+    }
+    if (!filter().length) {
+      return (
+        <div className={classes['card-list']}>
+          <span className={classes['card-list__not-found']}>Рейсов, подходящих под заданные фильтры, не найдено</span>
+        </div>
+      );
+    }
+    return (
+      <div className={classes['card-list']}>
+        {filter()
+          .slice(0, totalTickets)
+          .map((i, index) => {
+            return <Card data={i} key={index} />;
+          })}
+        <button
+          onClick={ticketsAreOut ? () => {} : () => setTotalTickets(totalTickets + 5)}
+          className={
+            ticketsAreOut
+              ? `${classes['card-list__button']} ${classes['card-list__button_disabled']}`
+              : classes['card-list__button']
+          }
+        >
+          {ticketsAreOut ? 'билетов больше нет!' : 'показать еще 5 билетов!'}
+        </button>
+      </div>
+    );
+  };
 
   const filter = () => {
     const tabFilter = (arr = tickets) => {
@@ -63,21 +113,14 @@ const CardList = () => {
             })
           : [];
       const filteredTickets = [...all, ...woTransfers, ...oneTransfer, ...twoTransfers, ...threeTransfers];
-      return tabFilter(filteredTickets.length > 0 ? filteredTickets : tickets);
+      return tabFilter(filteredTickets);
     };
     return checkboxFilter();
   };
 
-  return (
-    <div className={classes['card-list']}>
-      {filter()
-        .slice(0, totalTickets)
-        .map((i, index) => {
-          return <Card data={i} key={index} />;
-        })}
-      <button onClick={() => setTotalTickets(totalTickets + 5)}>показать еще 5 билетов!</button>
-    </div>
-  );
+  const ticketsAreOut = filter().length <= totalTickets;
+
+  return <RenderList />;
 };
 
 export default CardList;
