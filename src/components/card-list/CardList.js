@@ -20,9 +20,12 @@ const CardList = () => {
     dispatch({ type: 'GET_TICKETS', payload: data });
     return data;
   };
-  useEffect(async () => {
-    await getTickets(await getSearchId());
-    dispatch({ type: 'GET_CHEAPEST' });
+  useEffect(() => {
+    const getData = async () => {
+      await getTickets(await getSearchId());
+      dispatch({ type: 'GET_CHEAPEST' });
+    };
+    getData();
   }, []);
 
   return (
