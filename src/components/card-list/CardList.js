@@ -11,6 +11,7 @@ const CardList = () => {
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
   const activeTab = useSelector((state) => state.tabs.activeTabButton);
+  const filterState = useSelector((state) => state.filter);
 
   useEffect(() => {
     const getData = async () => {
@@ -21,18 +22,50 @@ const CardList = () => {
   }, []);
 
   const filter = () => {
-    switch (activeTab) {
-      case 'cheapest':
-        return [...tickets].sort((a, b) => {
-          return a.price - b.price;
-        });
-      case 'fastest':
-        return [...tickets].sort((a, b) => {
-          return a.segments[0].duration - b.segments[0].duration;
-        });
-      default:
-        return [...tickets];
-    }
+    const tabFilter = (arr = tickets) => {
+      switch (activeTab) {
+        case 'cheapest':
+          return [...arr].sort((a, b) => {
+            return a.price - b.price;
+          });
+        case 'fastest':
+          return [...arr].sort((a, b) => {
+            return a.segments[0].duration - b.segments[0].duration;
+          });
+        default:
+          return [...arr];
+      }
+    };
+    const checkboxFilter = () => {
+      const all = filterState.All ? tabFilter() : [];
+      const woTransfers =
+        filterState.Wo && !filterState.All
+          ? tabFilter().filter((i) => {
+              return i.segments[0].stops.length === 0 && i.segments[1].stops.length === 0;
+            })
+          : [];
+      const oneTransfer =
+        filterState.One && !filterState.All
+          ? tabFilter().filter((i) => {
+              return i.segments[0].stops.length === 1 && i.segments[1].stops.length === 1;
+            })
+          : [];
+      const twoTransfers =
+        filterState.Two && !filterState.All
+          ? tabFilter().filter((i) => {
+              return i.segments[0].stops.length === 2 && i.segments[1].stops.length === 2;
+            })
+          : [];
+      const threeTransfers =
+        filterState.Three && !filterState.All
+          ? tabFilter().filter((i) => {
+              return i.segments[0].stops.length === 3 && i.segments[1].stops.length === 3;
+            })
+          : [];
+      const filteredTickets = [...all, ...woTransfers, ...oneTransfer, ...twoTransfers, ...threeTransfers];
+      return tabFilter(filteredTickets.length > 0 ? filteredTickets : tickets);
+    };
+    return checkboxFilter();
   };
 
   return (
