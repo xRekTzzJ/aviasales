@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 
+import { setTab } from '../../actions/actions';
 import classes from '../../index.module.scss';
 
 const TabButton = ({ title, name }) => {
   const dispatch = useDispatch();
   const activeTabButton = useSelector((state) => state.tabs.activeTabButton);
   const onButtonClick = () => {
-    if (name !== activeTabButton) {
-      dispatch({ type: name });
-    }
+    dispatch(setTab(name));
   };
   let styles =
     activeTabButton === name

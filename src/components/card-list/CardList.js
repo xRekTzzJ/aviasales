@@ -3,44 +3,26 @@ import { Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { filterAll, getData as getTickets, loading } from '../../actions/actions';
 import classes from '../../index.module.scss';
-import { getSearchID, getTickets } from '../../services/aviasales-service';
 import Card from '../card';
 const CardList = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loading);
+    dispatch(filterAll);
+    dispatch(getTickets());
+  }, []);
+
   const [totalTickets, setTotalTickets] = useState(5);
 
-  const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
   const activeTab = useSelector((state) => state.tabs.activeTabButton);
   const loader = useSelector((state) => state.tickets.loader);
   const stop = useSelector((state) => state.tickets.stop);
   const filterState = useSelector((state) => state.filter);
 
-  const getData = () => {
-    dispatch({ type: 'LOADING' });
-    dispatch({ type: 'All' });
-    return async (dispatch) => {
-      const searchId = await getSearchID();
-      const interval = setInterval(async () => {
-        try {
-          const data = await getTickets(searchId);
-          if (data.stop) clearInterval(interval);
-          dispatch({
-            type: 'GET_TICKETS',
-            payload: data,
-          });
-        } catch (error) {
-          if (error.message === 'Failed to fetch') {
-            clearInterval(interval);
-          }
-        }
-      }, 400);
-    };
-  };
-
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
   const RenderList = () => {
     if (loader) {
       return (
