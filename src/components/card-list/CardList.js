@@ -20,10 +20,10 @@ const CardList = () => {
     dispatch({ type: 'LOADING' });
     dispatch({ type: 'All' });
     return async (dispatch) => {
-      const id = await getSearchID();
+      const searchId = await getSearchID();
       const interval = setInterval(async () => {
         try {
-          const data = await getTickets(id);
+          const data = await getTickets(searchId);
           console.log(data);
           if (data.stop) clearInterval(interval);
           dispatch({
@@ -77,8 +77,8 @@ const CardList = () => {
       <div className={classes['card-list']}>
         {filter()
           .slice(0, totalTickets)
-          .map((i, index) => {
-            return <Card data={i} key={index} />;
+          .map((i) => {
+            return <Card data={i} key={i.id} />;
           })}
         <button
           onClick={ticketsAreOut ? () => {} : () => setTotalTickets(totalTickets + 5)}

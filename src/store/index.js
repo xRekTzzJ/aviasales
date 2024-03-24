@@ -10,6 +10,16 @@ const reducer = combineReducers({
   tickets: aviasalesReducer,
 });
 
-const store = configureStore({ reducer }, applyMiddleware(thunk));
+const store = configureStore(
+  {
+    reducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        immutableCheck: false,
+        serializableCheck: false,
+      }),
+  },
+  applyMiddleware(thunk)
+);
 
 export default store;
