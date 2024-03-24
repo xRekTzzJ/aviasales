@@ -13,7 +13,8 @@ const CardList = () => {
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
   const activeTab = useSelector((state) => state.tabs.activeTabButton);
-  const isLoading = useSelector((state) => state.tickets.loading);
+  const loader = useSelector((state) => state.tickets.loader);
+  const stop = useSelector((state) => state.tickets.stop);
   const filterState = useSelector((state) => state.filter);
 
   const getData = () => {
@@ -39,7 +40,6 @@ const CardList = () => {
   useEffect(() => {
     dispatch(getData());
   }, []);
-
   const RenderList = () => {
     if (errorState && tickets.length === 0) {
       return (
@@ -48,7 +48,7 @@ const CardList = () => {
         </div>
       );
     }
-    if (isLoading) {
+    if (loader) {
       return (
         <div className={classes['card-list']}>
           <Spin
@@ -73,6 +73,23 @@ const CardList = () => {
     }
     return (
       <div className={classes['card-list']}>
+        {!stop ? (
+          <div className={classes['card-list__loading']}>
+            <span>
+              <Spin
+                indicator={
+                  <LoadingOutlined
+                    style={{
+                      fontSize: 24,
+                    }}
+                    spin
+                  />
+                }
+              />
+              продолжается загрузка билетов.
+            </span>
+          </div>
+        ) : null}
         {filter()
           .slice(0, totalTickets)
           .map((i) => {

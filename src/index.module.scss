@@ -66,6 +66,15 @@
     letter-spacing: 0.5px;
     text-align: center;
   }
+
+  &__loading {
+    & span {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 
 .filter {

@@ -1,6 +1,7 @@
 const initialState = {
   tickets: [],
-  loading: true,
+  loader: true,
+  stop: false,
 };
 
 const aviasalesReducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const aviasalesReducer = (state = initialState, action) => {
             return i;
           }),
         ],
-        loading: false,
+        loader: false,
+        stop: action.payload.stop,
       };
     case 'LOADING':
       return { ...state, loading: true };
