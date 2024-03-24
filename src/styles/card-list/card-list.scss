@@ -1,0 +1,66 @@
+.card-list {
+  grid-area: cards;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 502px;
+  margin: 0;
+  padding: 0 0 30px;
+
+  @media screen and (max-width: 550px) {
+    width: 300px;
+    margin: 0;
+  }
+
+  &__button {
+    font-style: normal;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #2196f3;
+    border-radius: 5px;
+    border: none;
+    width: 502px;
+    height: 50px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    @media screen and (max-width: 550px) {
+      width: 400px;
+      margin: 0;
+    }
+    @media screen and (max-width: 470px) {
+      width: 300px;
+    }
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &_disabled {
+      opacity: 0.4;
+    }
+    &_disabled:hover {
+      opacity: 0.4;
+    }
+  }
+  &__not-found {
+    text-align: center;
+    font-size: 16px;
+    color: $text-color;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  &__loading {
+    & span {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

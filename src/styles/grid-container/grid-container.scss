@@ -1,0 +1,21 @@
+.grid-container {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: min-content;
+  grid-template-rows: min-content;
+  grid-template-areas:
+    'filter tabs'
+    'filter cards';
+  gap: 20px;
+
+  @media screen and (max-width: 780px) {
+    padding: 0 20px;
+    grid-template-areas:
+      'filter'
+      'tabs'
+      'cards';
+  }
+  @media screen and (max-width: 550px) {
+    width: 300px;
+  }
+}

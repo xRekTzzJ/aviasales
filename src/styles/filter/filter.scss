@@ -1,0 +1,100 @@
+.filter {
+  background-color: $elements-background;
+  width: 232px;
+  height: 212px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  color: $text-color;
+  gap: 20px;
+  grid-area: filter;
+  overflow: hidden;
+
+  @media screen and (max-width: 780px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 550px) {
+    width: 400px;
+    margin: 0;
+  }
+  @media screen and (max-width: 470px) {
+    width: 330px;
+  }
+  &__checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+
+    & + label {
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+      cursor: pointer;
+      width: 100%;
+      padding: 10px 20px;
+    }
+
+    & + label::before {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid #adb5bd;
+      border-radius: 0.25em;
+      margin-right: 0.5em;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50% 50%;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    &:checked + label::before {
+      border-color: #0b76ef;
+      background-color: none;
+      background-image: url('../../img/Shape.png');
+    }
+
+    &:not(:disabled):not(:checked) + label:hover::before {
+      border-color: #b3d7ff;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    text-align: left;
+    font-style: normal;
+    font-size: 13px;
+    line-height: 20px;
+    transition: 0.3s;
+    cursor: pointer;
+
+    @media screen and (max-width: 780px) {
+      font-size: 18px;
+    }
+
+    &:hover {
+      background-color: #f1fcff;
+    }
+  }
+
+  &__title {
+    margin: 0 20px;
+    font-style: normal;
+    font-size: $text-size-s;
+    line-height: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+}
