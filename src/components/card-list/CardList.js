@@ -24,14 +24,12 @@ const CardList = () => {
       const interval = setInterval(async () => {
         try {
           const data = await getTickets(searchId);
-          console.log(data);
           if (data.stop) clearInterval(interval);
           dispatch({
             type: 'GET_TICKETS',
             payload: data,
           });
         } catch (error) {
-          clearInterval(interval);
           setErrorState(true);
         }
       }, 1000);
@@ -96,9 +94,10 @@ const CardList = () => {
 
   const filter = () => {
     const tabFilter = (arr = tickets) => {
+      const ticketsArr = [...arr];
       switch (activeTab) {
         case 'cheapest':
-          return [...arr].sort((a, b) => {
+          return ticketsArr.sort((a, b) => {
             return a.price - b.price;
           });
         case 'fastest':
