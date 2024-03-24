@@ -14,6 +14,7 @@
 }
 
 .grid-container {
+  width: fit-content;
   display: grid;
   grid-template-columns: min-content;
   grid-template-rows: min-content;
@@ -21,6 +22,14 @@
     'filter tabs'
     'filter cards';
   gap: 20px;
+
+  @media screen and (max-width: 780px) {
+    margin: 0 auto;
+    grid-template-areas:
+      'filter'
+      'tabs'
+      'cards';
+  }
 }
 
 .card-list {
@@ -91,6 +100,10 @@
   grid-area: filter;
   overflow: hidden;
 
+  @media screen and (max-width: 780px) {
+    width: 100%;
+  }
+
   &__checkbox {
     position: absolute;
     z-index: -1;
@@ -149,6 +162,10 @@
     transition: 0.3s;
     cursor: pointer;
 
+    @media screen and (max-width: 780px) {
+      font-size: 18px;
+    }
+
     &:hover {
       background-color: #f1fcff;
     }
@@ -169,6 +186,9 @@
   display: grid;
   grid-auto-flow: column;
   width: 502px;
+  @media screen and (max-width: 550px) {
+    grid-auto-flow: row;
+  }
   &__button {
     margin: 0;
     padding: 15px;
@@ -193,10 +213,16 @@
 
     &:first-of-type {
       border-radius: 10px 0px 0px 10px;
+      @media screen and (max-width: 550px) {
+        border-radius: 10px 10px 0px 0px;
+      }
     }
 
     &:last-of-type {
       border-radius: 0px 10px 10px 0;
+      @media screen and (max-width: 550px) {
+        border-radius: 0px 0px 10px 10px;
+      }
     }
 
     &_active {

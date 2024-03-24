@@ -3,7 +3,7 @@
 .body {
   font-family: $fonts;
   font-optical-sizing: auto;
-  width: $max-width;
+  max-width: $max-width;
   margin: 0 auto;
   background-color: $background;
 }
