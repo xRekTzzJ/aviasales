@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Alert, Spin } from 'antd';
+import { Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,7 +8,6 @@ import { getSearchID, getTickets } from '../../services/aviasales-service';
 import Card from '../card';
 const CardList = () => {
   const [totalTickets, setTotalTickets] = useState(5);
-  const [errorState, setErrorState] = useState(false);
 
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
@@ -31,9 +30,11 @@ const CardList = () => {
             payload: data,
           });
         } catch (error) {
-          setErrorState(true);
+          if (error.message === 'Failed to fetch') {
+            clearInterval(interval);
+          }
         }
-      }, 1000);
+      }, 400);
     };
   };
 
@@ -41,13 +42,6 @@ const CardList = () => {
     dispatch(getData());
   }, []);
   const RenderList = () => {
-    if (errorState && tickets.length === 0) {
-      return (
-        <div className={classes['card-list']}>
-          <Alert message="Server error" description="Please try again later." type="error" showIcon />
-        </div>
-      );
-    }
     if (loader) {
       return (
         <div className={classes['card-list']}>
