@@ -16,8 +16,14 @@ export const getData = () => {
         if (error.message === 'Failed to fetch') {
           clearInterval(interval);
         }
+        if (error.message !== 'Unexpected end of JSON input' && error.message !== 'Internal Server Error') {
+          dispatch({
+            type: 'ERROR',
+            payload: true,
+          });
+        }
       }
-    }, 500);
+    }, 1000);
   };
 };
 

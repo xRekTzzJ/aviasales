@@ -2,6 +2,7 @@ const initialState = {
   tickets: [],
   loader: true,
   stop: false,
+  error: false,
 };
 
 const aviasalesReducer = (state = initialState, action) => {
@@ -20,7 +21,9 @@ const aviasalesReducer = (state = initialState, action) => {
         stop: action.payload.stop,
       };
     case 'LOADING':
-      return { ...state, loading: true };
+      return { ...state, loader: true };
+    case 'ERROR':
+      return { ...state, error: true, loader: false };
     default:
       return state;
   }

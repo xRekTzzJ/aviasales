@@ -18,6 +18,7 @@ const CardList = () => {
   const [totalTickets, setTotalTickets] = useState(5);
 
   const tickets = useSelector((state) => state.tickets.tickets);
+  const serverError = useSelector((state) => state.tickets.error);
   const activeTab = useSelector((state) => state.tabs.activeTabButton);
   const loader = useSelector((state) => state.tickets.loader);
   const stop = useSelector((state) => state.tickets.stop);
@@ -37,6 +38,20 @@ const CardList = () => {
               />
             }
           />
+        </div>
+      );
+    }
+    if (serverError) {
+      return (
+        <div className={classes['card-list']}>
+          <span
+            className={classes['card-list__not-found']}
+            style={{
+              color: 'red',
+            }}
+          >
+            Сервис временно недоступен, пожалуйста, попробуйте позже.
+          </span>
         </div>
       );
     }
