@@ -5,7 +5,11 @@ export const getSearchID = async () => {
 };
 
 export const getTickets = async (id) => {
-  const res = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${id}`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${id}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw new Error();
+  }
 };

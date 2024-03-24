@@ -8,8 +8,7 @@ import { getSearchID, getTickets } from '../../services/aviasales-service';
 import Card from '../card';
 const CardList = () => {
   const [totalTickets, setTotalTickets] = useState(5);
-  // const [errorState, setErrorState] = useState(false);
-  const errorState = false;
+  const [errorState, setErrorState] = useState(false);
 
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
@@ -18,18 +17,28 @@ const CardList = () => {
   const filterState = useSelector((state) => state.filter);
 
   const getData = () => {
+    dispatch({ type: 'LOADING' });
+    dispatch({ type: 'All' });
     return async (dispatch) => {
-      const data = await getTickets(await getSearchID());
-      dispatch({
-        type: 'GET_TICKETS',
-        payload: data,
-      });
+      const id = await getSearchID();
+      const interval = setInterval(async () => {
+        try {
+          const data = await getTickets(id);
+          console.log(data);
+          if (data.stop) clearInterval(interval);
+          dispatch({
+            type: 'GET_TICKETS',
+            payload: data,
+          });
+        } catch (error) {
+          clearInterval(interval);
+          setErrorState(true);
+        }
+      }, 1000);
     };
   };
 
   useEffect(() => {
-    dispatch({ type: 'LOADING' });
-    dispatch({ type: 'All' });
     dispatch(getData());
   }, []);
 
