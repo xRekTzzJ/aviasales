@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import classes from '../../index.module.scss';
-import AviasalesService from '../../services/aviasales-service';
+import { getSearchID, getTickets } from '../../services/aviasales-service';
 import Card from '../card';
 const CardList = () => {
   const [totalTickets, setTotalTickets] = useState(5);
-  const [errorState, setErrorState] = useState(false);
-  const aviasalesApi = new AviasalesService();
+  // const [errorState, setErrorState] = useState(false);
+  const errorState = false;
 
   const dispatch = useDispatch();
   const tickets = useSelector((state) => state.tickets.tickets);
@@ -17,18 +17,20 @@ const CardList = () => {
   const isLoading = useSelector((state) => state.tickets.loading);
   const filterState = useSelector((state) => state.filter);
 
+  const getData = () => {
+    return async (dispatch) => {
+      const data = await getTickets(await getSearchID());
+      dispatch({
+        type: 'GET_TICKETS',
+        payload: data,
+      });
+    };
+  };
+
   useEffect(() => {
     dispatch({ type: 'LOADING' });
-    const getData = async () => {
-      try {
-        await aviasalesApi.getTickets(await aviasalesApi.getSearchId());
-        dispatch({ type: 'GET_CHEAPEST' });
-        dispatch({ type: 'All' });
-      } catch {
-        setErrorState(true);
-      }
-    };
-    getData();
+    dispatch({ type: 'All' });
+    dispatch(getData());
   }, []);
 
   const RenderList = () => {

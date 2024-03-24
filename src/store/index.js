@@ -1,4 +1,5 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { applyMiddleware, combineReducers, configureStore } from '@reduxjs/toolkit';
+import { thunk } from 'redux-thunk';
 
 import aviasalesReducer from './aviasalesReducer';
 import filterReducer from './filterReducer';
@@ -9,6 +10,6 @@ const reducer = combineReducers({
   tickets: aviasalesReducer,
 });
 
-const store = configureStore({ reducer });
+const store = configureStore({ reducer }, applyMiddleware(thunk));
 
 export default store;
